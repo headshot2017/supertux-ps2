@@ -1,0 +1,92 @@
+
+- Install instructions for SuperTux -
+http://super-tux.sf.net/
+
+Last update: April 26, 2004
+
+REQUIREMENTS
+------------
+
+  CONTROLS
+  --------
+    The game can be played with either a the keyboard or a joystick.
+
+  SDL
+  ---
+    "SuperTux" was programed using the "Simple DirectMedia Layer"
+    libraries by Sam Lantinga.  This means that the game can
+    theoretically run under any environment that the SDL libraries support.
+
+    (As of this program's release, this includes: Linux X11/DGA,
+    Win32 WinDIB/DirectX, BeOS BWindow, and Solaris X11, as well
+    as unofficually supported: Linux SVGAlib, IRIX 6.x X11,
+    FreeBSD 3.x X11, and MacOS.)
+
+    The Simple DirectMedia Layer is required to compile this game.
+
+    You can download the SDL libraries from:
+      http://www.libsdl.org/
+
+  SDL_image
+  ---------
+    SDL_image is also required.  (It is used to load the PNG format images
+    that come with SuperTux!)
+
+  SDL_mixer
+  ---------
+    Sound and music are available, but are not required (see below).
+    You will need the "SDL_mixer" library compiled and installed if
+    you want sound.
+
+  OpenGL implementation (optional)
+  ---------------------
+    Mesa should be installed in order to compile, but it is painly
+    slow when running, so we advise you to install your videocard
+    drivers (of course, it has to be an accelerated videocard).
+    For linux, nvidia vendor is the only one that makes decent drivers.
+    But the ATI drivers should run with the same performance, since
+    it only uses accelerated 2d, not 3d.
+
+    Anyway, you can use the SDL frontend and you most likely won't
+    notice any difference.
+
+
+INSTALLING UNDER LINUX/UNIX
+---------------------------
+  -----------------------------------------------------------------
+  Note: Read this entire section before you start issuing commands!
+  -----------------------------------------------------------------
+
+  SuperTux uses a script that checks for dependency and disables
+  features, in case they are not found.
+  The script is the configure and you can specify a few stuff
+  like the directory to which you want to install SuperTux,
+  by giving the argument --prefix=/usr/local (ie). For more
+  informations, type './configure --help'.
+  (Note: SuperTux does not need to be installed in the system,
+  you can run it from its own directory.)
+
+  If there isn't any configure script (ie. in case, you got it
+  via cvs), just run the autogen.sh script.
+
+  To compile it, a 'make' is enough.
+  Type 'make install' (as root) to copy it into the system.
+  (default directory is /usr/local, see above how to change
+  this.)
+
+  So, in short, just type:
+  sh autogen.sh (in case there isn't any configure file already)
+  sh configure
+  make
+
+  And in case you want to copy SuperTux to the system:
+  make install (as root)
+
+
+ICON FILE
+---------
+  A 32x32, XPM-format icon file is available if you wish to use
+  an icon for a menu entry for this game.
+
+  The file is "icon.xpm", and can be found at  the data/images/
+  directory.
