@@ -17,9 +17,15 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+#undef fread
+#undef fwrite
+#undef fopen
+#undef fclose
+
 #include <stdlib.h>
 #include <sys/stat.h>
 #include <cstring>
+#include <stdio.h>
 #include "configfile.h"
 #include "setup.h"
 #include "globals.h"
@@ -119,7 +125,6 @@ void saveconfig (void)
 {
   /* write settings to config file */
 
-  //mkdir("mc0:SUPERTUXconf/", 0777);
   CreateSave("conf", config_filename);
   char path[128];
   sprintf(path, "conf/%s", config_filename);

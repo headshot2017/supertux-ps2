@@ -27,6 +27,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <romfs_io.h>
 #include "setup.h"
 #include "lispreader.h"
 
@@ -76,7 +77,7 @@ _next_char (lisp_stream_t *stream)
   switch (stream->type)
     {
     case LISP_STREAM_FILE :
-      return getc(stream->v.file);
+      return stream->romfs ? rgetc(stream->v.file) : getc(stream->v.file);
 
     case LISP_STREAM_STRING :
       {
@@ -103,7 +104,7 @@ _unget_char (char c, lisp_stream_t *stream)
   switch (stream->type)
     {
     case LISP_STREAM_FILE :
-      ungetc(c, stream->v.file);
+      stream->romfs ? rseek(stream->v.file, -1, SEEK_CUR) : ungetc(c, stream->v.file);
       break;
 
     case LISP_STREAM_STRING :
@@ -1367,6 +1368,7 @@ bool has_suffix(const char* data, const char* suffix)
 lisp_object_t* lisp_read_from_file(const std::string& filename)
 {
   lisp_stream_t stream;
+  bool is_romfs = (strncmp(filename.c_str(), "mc0", 3) != 0); // playstation 2 moment
 
   if (has_suffix(filename.c_str(), ".gz"))
     {
@@ -1375,13 +1377,16 @@ lisp_object_t* lisp_read_from_file(const std::string& filename)
   else
     {
       lisp_object_t* obj = 0;
-      FILE* in = fopen(filename.c_str(), "r");
+      FILE* in = is_romfs ? ropen(filename.c_str(), "r") : fopen(filename.c_str(), "r");
 
       if (in)
         {
           lisp_stream_init_file(&stream, in);
+          stream.romfs = is_romfs; // playstation 2 moment
+          printf("'%s' %s romfs\n", filename.c_str(), stream.romfs?"is":"is not");
           obj = lisp_read(&stream);
-          fclose(in);
+          printf("null: %s\n", obj?"no":"yes");
+          is_romfs ? rclose(in) : fclose(in);
         }
 
       return obj;
