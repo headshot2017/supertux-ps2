@@ -4,28 +4,23 @@ EE_BIN = supertux.elf
 EE_INCS = -Isrc -I$(PS2SDK)/ports/include
 EE_CXXFLAGS := -DNOOPENGL
 EE_LDFLAGS = -L$(PS2SDK)/ports/lib -L$(GSKIT)/lib
-EE_LIBS = -lSDL_image -lsdlmixer -lsdl -logg -lvorbis -lmc -lc -lstdc++
+EE_LIBS = -lSDL_image -lsdlmixer -lsdl -logg -lvorbis -lcdvd -lmc -lc -lstdc++
 
-#EE_IRX_FILES=\
-#	usbd.irx \
-#	usbhdfsd.irx \
-#	cdfs.irx \
-#        ps2dev9.irx \
-#        ps2atad.irx \
-#        ps2hdd.irx \
-#        ps2fs.irx \
+EE_IRX_FILES=\
+	usbd.irx \
+	usbhdfsd.irx \
 
-#EE_IRX_SRCS = $(addsuffix _irx.c, $(basename $(EE_IRX_FILES)))
-#EE_IRX_OBJS = $(addsuffix _irx.o, $(basename $(EE_IRX_FILES)))
-#EE_OBJS += $(EE_IRX_OBJS)
+EE_IRX_SRCS = $(addsuffix _irx.c, $(basename $(EE_IRX_FILES)))
+EE_IRX_OBJS = $(addsuffix _irx.o, $(basename $(EE_IRX_FILES)))
+EE_OBJS += $(EE_IRX_OBJS)
 
 # Where to find the IRX files
-#vpath %.irx $(PS2SDK)/iop/irx/
+vpath %.irx $(PS2SDK)/iop/irx/
 
 # Rule to generate them
-#%_irx.o: %.irx
-#	bin2c $< $*_irx.c $*_irx
-#	$(EE_CC) -c $*_irx.c -o $*_irx.o
+%_irx.o: %.irx
+	bin2c $< $*_irx.c $*_irx
+	$(EE_CC) -c $*_irx.c -o $*_irx.o
 
 # This is for the sbv patch
 SBVLITE = $(PS2SDK)/sbv
@@ -36,10 +31,8 @@ EE_LIBS += -lpatches
 
 all: $(EE_BIN)
 
-install:
-
 clean:
-	rm -f $(EE_OBJS) $(EE_BIN) $(EE_IRX_SRCS) romdisk.img
+	rm -f $(EE_OBJS) $(EE_BIN) $(EE_IRX_SRCS)
 
 run:
 	ps2client execee host:$(EE_BIN)
@@ -47,7 +40,6 @@ run:
 reset:
 	ps2client reset
 
-include Makefile.romfs
 include $(PS2SDK)/samples/Makefile.pref
 include $(PS2SDK)/samples/Makefile.eeglobal
 
