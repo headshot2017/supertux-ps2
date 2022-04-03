@@ -63,6 +63,7 @@ IRX_DEFINE(usbd);
 IRX_DEFINE(usbhdfsd);
 
 
+
 #define	MASS_USB_ID	0x500C0F1
 static SifRpcClientData_t client __attribute__((aligned(64)));
 int usb_mass_bindRpc() {
@@ -137,12 +138,8 @@ int main(int argc, char * argv[])
   IRX_LOAD(usbd);
   IRX_LOAD(usbhdfsd);
 
-  ret = usb_mass_bindRpc();
-  if (ret < 0 ) {
-    printf("\nSifBindRpc failed: %d !!!!\n", ret);
-  }else {
-    printf("ok\n");
-  }
+  // not running this function will just not make the usb device work no matter what
+  usb_mass_bindRpc();
 
   st_directory_setup();
   parseargs(argc, argv);
