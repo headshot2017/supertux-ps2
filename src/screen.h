@@ -54,6 +54,5 @@ void updatescreen(void);
 void flipscreen(void);
 void update_rect(SDL_Surface *scr, Sint32 x, Sint32 y, Sint32 w, Sint32 h);
 void fadeout(const char* extra=NULL);
-void infoscreen(const char* line1, const char* line2);
 
 #endif /*SUPERTUX_SCREEN_H*/
