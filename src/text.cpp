@@ -373,7 +373,7 @@ void display_text_file(const std::string& file, Surface* surface, float scroll_s
       if(scroll < 0)
         scroll = 0;
 
-      SDL_Delay(10);
+      //SDL_Delay(10);
     }
   string_list_free(&names);
 

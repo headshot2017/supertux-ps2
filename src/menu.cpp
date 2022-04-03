@@ -100,7 +100,7 @@ void message_dialog(std::string line1, std::string line2)
     }
 
     flipscreen();
-    SDL_Delay(25);
+    //SDL_Delay(25);
   }
 }
 
@@ -152,7 +152,7 @@ bool confirm_dialog(std::string text)
 
     //mouse_cursor->draw();
     flipscreen();
-    SDL_Delay(25);
+    //SDL_Delay(25);
   }
 }
 

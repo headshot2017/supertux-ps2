@@ -1019,7 +1019,7 @@ WorldMap::display()
         }
       flipscreen();
 
-      SDL_Delay(20);
+      //SDL_Delay(20);
     }
 }
 
