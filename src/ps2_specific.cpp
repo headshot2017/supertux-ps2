@@ -9,7 +9,6 @@
 #include <loadfile.h>
 #include <malloc.h>
 #include <sjis.h>
-#include <romfs_io.h>
 
 #include "ps2_specific.h"
 #include "globals.h"
@@ -80,17 +79,17 @@ void CreateSave(std::string tuxdir, std::string name)
 	// Write icon file to the memory card.
 	// Note: The icon file was created with my bmp2icon tool, available for download at
 	//       http://www.ps2dev.org
-	icon_fd = ropen("data/tux.icn", "r");
+	icon_fd = fopen("data/tux.icn", "r");
 	if(!icon_fd) return;
 
-	rseek(icon_fd,0,SEEK_END);
-	icon_size = rtell(icon_fd);
-	rseek(icon_fd,0,SEEK_SET);
+	fseek(icon_fd,0,SEEK_END);
+	icon_size = ftell(icon_fd);
+	fseek(icon_fd,0,SEEK_SET);
 
 	icon_buffer = (char*)malloc(icon_size);
 	if(icon_buffer == NULL) return;
-	if(rread(icon_buffer, 1, icon_size, icon_fd) != icon_size) return;
-	rclose(icon_fd);
+	if(fread(icon_buffer, 1, icon_size, icon_fd) != icon_size) return;
+	fclose(icon_fd);
 
 	sprintf(str, "%s/tux.icn", dirpath);
 	icon_fd = fopen(str, "w");
