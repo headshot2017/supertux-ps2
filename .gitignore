@@ -1,2 +1,4 @@
 *.o
 *.elf
+romdisk.c
+romdisk.img
