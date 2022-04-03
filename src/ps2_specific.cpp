@@ -1,9 +1,3 @@
-#undef fopen
-#undef fclose
-#undef fwrite
-#undef fseek
-#undef ftell
-
 #include <sys/stat.h>
 #include <stdio.h>
 #include <stdlib.h>
