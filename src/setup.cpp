@@ -17,6 +17,13 @@
 //  along with this program; if not, write to the Free Software
 //  Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
+#undef fopen
+#undef fclose
+#undef fseek
+#undef ftell
+#undef fwrite
+#undef fread
+
 #include <assert.h>
 #include <stdio.h>
 #include <iostream>
@@ -38,6 +45,7 @@
 #include <libgen.h>
 #endif
 #include <ctype.h>
+#include <romfs_io.h>
 
 #include "defines.h"
 #include "globals.h"
@@ -59,11 +67,8 @@
 #ifdef WIN32
 #define mkdir(dir, mode)    mkdir(dir)
 // on win32 we typically don't want LFS paths
-#undef DATA_PREFIX
-#define DATA_PREFIX "./data/"
 #endif
-
-#define DATA_PREFIX "mass:/APPS/SUPERTUX"
+#define DATA_PREFIX "data"
 
 /* Screen proprities: */
 /* Don't use this to test for the actual screen sizes. Use screen->w/h instead! */
@@ -78,27 +83,19 @@ void usage(char * prog, int ret);
 /* Does the given file exist and is it accessible? */
 int faccessible(const char *filename)
 {
-  FILE* fd = fopen(filename, "r");
+  bool is_romfs = (strncmp(filename, "mc0", 3) != 0);
+  FILE* fd = is_romfs ? ropen(filename, "r") : fopen(filename, "r");
   if (!fd) return false;
-  fclose(fd);
+  is_romfs ? rclose(fd) : fclose(fd);
   return true;
-  /*struct stat filestat;
-  if (stat(filename, &filestat) == -1)
-    {
-      return false;
-    }
-  else
-    {
-      if(S_ISREG(filestat.st_mode))
-        return true;
-      else
-        return false;
-    }*/
 }
 
 /* Can we write to this location? */
 int fwriteable(const char *filename)
 {
+  bool is_romfs = (strncmp(filename, "mc0", 3) != 0);
+  if (is_romfs) return false;
+
   FILE* fi;
   fi = fopen(filename, "wa");
   if (fi == NULL)
@@ -146,7 +143,8 @@ FILE * opendata(const char * rel_filename, const char * mode)
   strcat(filename, rel_filename);
 
   /* Try opening the file: */
-  fi = fopen(filename, mode);
+  bool is_romfs = (strncmp(filename, "mc0", 3) != 0);
+  fi = is_romfs ? ropen(filename, mode) : fopen(filename, mode);
 
   if (fi == NULL)
     {
@@ -340,7 +338,9 @@ void st_directory_setup(void)
   //sprintf(str, "%slevels", st_dir);
   //mkdir(str, 0755);
 
+  // data folder is packed into the elf ROM using romfs.
   datadir = DATA_PREFIX;
+
   printf("Datadir: %s\n", datadir.c_str());
 }
 
@@ -865,10 +865,11 @@ void st_shutdown(void)
 
 void st_abort(const std::string& reason, const std::string& details)
 {
-  FILE* fd = fopen("mass:TUX.TXT", "w");
-  fprintf(fd, "\nError: %s\n%s\n\n", reason.c_str(), details.c_str());
-  fclose(fd);
   printf("\nError: %s\n%s\n\n", reason.c_str(), details.c_str());
+  infoscreen(reason.c_str(), details.c_str());
+  while(1);
+
+  // will never get here
   st_shutdown();
   abort();
 }

@@ -362,9 +362,24 @@ void fadeout(const char* extra)
 {
   clearscreen(0, 0, 0);
   white_text->draw_align("Loading...", screen->w/2, screen->h/2, A_HMIDDLE, A_TOP);
-  if (extra) white_text->draw_align(extra, screen->w/2, screen->h/1.5, A_HMIDDLE, A_TOP);
+  printf("Loading");
+  if (extra)
+  {
+      white_text->draw_align(extra, screen->w/2, screen->h/1.5, A_HMIDDLE, A_TOP);
+      printf(": %s", extra);
+  }
+  printf("\n");
   flipscreen();
 }
+
+void infoscreen(const char* line1, const char* line2)
+{
+  clearscreen(0, 0, 0);
+  if (line1) white_text->draw_align(line1, screen->w/2, screen->h/2-16, A_HMIDDLE, A_TOP);
+  if (line2) white_text->draw_align(line2, screen->w/2, screen->h/2+16, A_HMIDDLE, A_TOP);
+  flipscreen();
+}
+
 
 void update_rect(SDL_Surface *scr, Sint32 x, Sint32 y, Sint32 w, Sint32 h)
 {
