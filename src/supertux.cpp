@@ -50,31 +50,6 @@
 #include "texture.h"
 #include "tile.h"
 
-int test_read()
-{
-        const char *filename = "mass:TEST.TXT";
-        char text[81];
-        int fd;
-        int size;
-
-        printf("read test:\n");
-
-        fd = open(filename, O_RDONLY);
-        if (fd <= 0) {
-                printf("  Cannot open file '%s'\n", filename);
-		return -1;
-        }
-
-        while ((size = read(fd, text, 10)) >= 1) {
-                text[size] = 0;
-                printf("read%d: %s\n", size, text);
-        }
-
-        close(fd);
-        return 0;
-}
-
-
 #define IRX_DEFINE(mod) \
 extern unsigned char mod##_irx[]; \
 extern unsigned int size_##mod##_irx
@@ -86,7 +61,6 @@ extern unsigned int size_##mod##_irx
 
 IRX_DEFINE(usbd);
 IRX_DEFINE(usbhdfsd);
-//IRX_DEFINE(usbmass_bd_mini);
 
 
 #define	MASS_USB_ID	0x500C0F1
@@ -111,83 +85,64 @@ int usb_mass_bindRpc() {
 
 int main(int argc, char * argv[])
 {
-	if (SDL_Init(SDL_INIT_TIMER))
-	{
-		printf("Failed to initialize SDL: %s\n", SDL_GetError());
-		return -1;
-	}
-    SDL_Delay(1000);
+  if (SDL_Init(SDL_INIT_TIMER))
+  {
+    printf("Failed to initialize SDL: %s\n", SDL_GetError());
+    return -1;
+  }
+  SDL_Delay(1000);
 
-// change priority to make SDL audio thread run properly
-    int main_id = GetThreadId();
-    ChangeThreadPriority(main_id, 72);
+  // change priority to make SDL audio thread run properly
+  int main_id = GetThreadId();
+  ChangeThreadPriority(main_id, 72);
 
-    // Initialize and connect to all SIF services on the IOP.
-    SifInitRpc(0);
-    while (!SifIopReset("", 0)); // clean previous loading of irx by apps like ulaunchElf. Comment this line to get cout on ps2link
-    while (!SifIopSync());
-    SifInitRpc(0);
-    SifLoadFileInit();
-    SifInitIopHeap();
+  // Initialize and connect to all SIF services on the IOP.
+  SifInitRpc(0);
+  while (!SifIopReset("", 0)); // clean previous loading of irx by apps like ulaunchElf. Comment this line to get cout on ps2link
+  while (!SifIopSync());
+  SifInitRpc(0);
+  SifLoadFileInit();
+  SifInitIopHeap();
 
-    // Apply the SBV LMB patch to allow modules to be loaded from a buffer in EE RAM.
-    sbv_patch_enable_lmb();
+  // Apply the SBV LMB patch to allow modules to be loaded from a buffer in EE RAM.
+  sbv_patch_enable_lmb();
 
   st_video_setup();
   st_joystick_setup();
 
-  //sleep(3);
-
   int ret = 0;
 
-    ret = SifLoadModule("rom0:XSIO2MAN", 0, NULL);
-    if (ret < 0) {
-        //exit(-1);
-    }
+  ret = SifLoadModule("rom0:XSIO2MAN", 0, NULL);
+  if (ret < 0) {
+      //exit(-1);
+  }
 
-    ret = SifLoadModule("rom0:XPADMAN", 0, NULL);
-    if (ret < 0) {
-        //exit(-1);
-    }
+  ret = SifLoadModule("rom0:XPADMAN", 0, NULL);
+  if (ret < 0) {
+      //exit(-1);
+  }
 
-    ret = SifLoadModule("rom0:XMCMAN", 0, NULL);
-    if (ret < 0) {
-        //exit(-1);
-    }
-    ret = SifLoadModule("rom0:XMCSERV", 0, NULL);
-    if (ret < 0) {
-        printf("Failed to load module: XMCSERV");
-    }
+  ret = SifLoadModule("rom0:XMCMAN", 0, NULL);
+  if (ret < 0) {
+      //exit(-1);
+  }
+  ret = SifLoadModule("rom0:XMCSERV", 0, NULL);
+  if (ret < 0) {
+      printf("Failed to load module: XMCSERV");
+  }
 
-    if(mcInit(MC_TYPE_XMC) < 0)
-        printf("Failed to initialise memcard server!\n");
+  if(mcInit(MC_TYPE_XMC) < 0)
+      printf("Failed to initialise memcard server!\n");
 
-    //FILE *fd = fopen("mc0:/tux.txt", "w");
-    //if (fd) fprintf(fd, "loading usb\n");
   IRX_LOAD(usbd);
   IRX_LOAD(usbhdfsd);
-  //IRX_LOAD(usbmass_bd_mini);
-    //if (fd) fprintf(fd, "loaded\n");
 
-ret = usb_mass_bindRpc();
-	if (ret < 0 ) {
-	        printf("\nSifBindRpc failed: %d !!!!\n", ret);
-	}else {
-		printf("ok\n");
-	}
-  //sleep(2);
-
-/*
-	fd = fopen("mc0:/SUPERTUX/icon.sys", "r");
-	if(fd ==NULL)
-	{
-		printf("\nNo previous save exists, creating...\n");
-		//if((ret = CreateSave()) < 0)
-			//printf("Failed to create save! Errorno: %d\n",ret);
-	}
-	else
-		fclose(fd);
-*/
+  ret = usb_mass_bindRpc();
+  if (ret < 0 ) {
+    printf("\nSifBindRpc failed: %d !!!!\n", ret);
+  }else {
+    printf("ok\n");
+  }
 
   st_directory_setup();
   parseargs(argc, argv);
@@ -202,7 +157,6 @@ ret = usb_mass_bindRpc();
 
   SDL_ShowCursor(false);
 
-    //if (fd) {fprintf(fd, "entered title\n"); fclose(fd);};
   title();
 
   // exit game
