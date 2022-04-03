@@ -23,6 +23,7 @@
 #include <cstring>
 #include <assert.h>
 #include <unistd.h>
+#include <romfs_io.h>
 #include "globals.h"
 #include "texture.h"
 #include "screen.h"
@@ -518,7 +519,7 @@ void WorldMap::get_level_title(Levels::pointer level)
 
   FILE * fi;
   lisp_object_t* root_obj = 0;
-  fi = fopen((datadir +  "/levels/" + level->name).c_str(), "r");
+  fi = ropen((datadir +  "/levels/" + level->name).c_str(), "r");
   if (fi == NULL)
   {
     perror((datadir +  "/levels/" + level->name).c_str());
@@ -542,7 +543,7 @@ void WorldMap::get_level_title(Levels::pointer level)
 
   lisp_free(root_obj);
 
-  fclose(fi);
+  rclose(fi);
 }
 
 void

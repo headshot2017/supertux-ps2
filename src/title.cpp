@@ -251,7 +251,8 @@ void title(void)
 
   /* Load images: */
   fadeout("Menu backgrounds");
-  bkg_title = new Surface(datadir + "/images/title/background.jpg", IGNORE_ALPHA);
+  //bkg_title = new Surface(datadir + "/images/title/background.jpg", IGNORE_ALPHA);
+  bkg_title = session.get_level()->img_bkgd;
   logo = new Surface(datadir + "/images/title/logo.png", USE_ALPHA);
   //img_choose_subset = new Surface(datadir + "/images/status/choose-level-subset.png", USE_ALPHA);
 
@@ -347,7 +348,7 @@ void title(void)
                   break;
                 case MNID_CREDITS:
                   music_manager = new MusicManager();
-                  menu_song  = music_manager->load_music(datadir + "/music/credits.ogg");
+                  menu_song  = music_manager->load_music(datadir + "/music/credits.mp3");
                   music_manager->halt_music();
                   music_manager->play_music(menu_song,0);
                   display_text_file("CREDITS", bkg_title, SCROLL_SPEED_CREDITS);
@@ -421,7 +422,7 @@ void title(void)
 
   free_contrib_menu();
   string_list_free(&worldmap_list);
-  delete bkg_title;
+  //delete bkg_title;
   delete logo;
   //delete img_choose_subset;
 }

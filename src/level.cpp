@@ -143,9 +143,9 @@ void LevelSubset::load(char *subset)
         }
       else
         {
-          snprintf(filename, 1024, "%s/images/status/level-subset-info.png", datadir.c_str());
-          delete image;
-          image = new Surface(filename,IGNORE_ALPHA);
+          //snprintf(filename, 1024, "%s/images/status/level-subset-info.png", datadir.c_str());
+          //delete image;
+          //image = new Surface(filename,IGNORE_ALPHA);
         }
     }
 
