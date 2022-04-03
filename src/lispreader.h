@@ -58,7 +58,6 @@
 typedef struct
   {
     int type;
-    bool romfs;
 
     union
       {
