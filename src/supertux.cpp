@@ -35,6 +35,7 @@
 #include <iopcontrol.h>
 #include <sbv_patches.h>
 #include <libmc.h>
+#include <libcdvd.h>
 
 #include "defines.h"
 #include "globals.h"
@@ -61,7 +62,7 @@ extern unsigned int size_##mod##_irx
 
 IRX_DEFINE(usbd);
 IRX_DEFINE(usbhdfsd);
-
+IRX_DEFINE(cdfs);
 
 
 #define	MASS_USB_ID	0x500C0F1
@@ -135,8 +136,11 @@ int main(int argc, char * argv[])
   if(mcInit(MC_TYPE_XMC) < 0)
       printf("Failed to initialise memcard server!\n");
 
+  sceCdInit(SCECdINoD);
+
   IRX_LOAD(usbd);
   IRX_LOAD(usbhdfsd);
+  IRX_LOAD(cdfs);
 
   // not running this function will just not make the usb device work no matter what
   usb_mass_bindRpc();

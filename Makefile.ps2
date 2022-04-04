@@ -9,6 +9,7 @@ EE_LIBS = -lSDL_image -lsdlmixer -lsdl -logg -lvorbis -lcdvd -lmc -lc -lstdc++
 EE_IRX_FILES=\
 	usbd.irx \
 	usbhdfsd.irx \
+	cdfs.irx \
 
 EE_IRX_SRCS = $(addsuffix _irx.c, $(basename $(EE_IRX_FILES)))
 EE_IRX_OBJS = $(addsuffix _irx.o, $(basename $(EE_IRX_FILES)))
