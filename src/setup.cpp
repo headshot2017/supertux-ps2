@@ -63,8 +63,6 @@
 #define DATA_PREFIX "./data/"
 #endif
 
-#define DATA_PREFIX "mass:/APPS/SUPERTUX"
-
 /* Screen proprities: */
 /* Don't use this to test for the actual screen sizes. Use screen->w/h instead! */
 #define SCREEN_W 640
@@ -131,6 +129,18 @@ int fcreatedir(const char* relative_dir)
       return true;
     }
 }
+
+bool dirExists(const char *path)
+{
+    DIR* dir = opendir(path);
+    if (dir)
+    {
+        closedir(dir);
+        return true;
+    }
+    return false;
+}
+
 
 FILE * opendata(const char * rel_filename, const char * mode)
 {
@@ -340,7 +350,15 @@ void st_directory_setup(void)
   //sprintf(str, "%slevels", st_dir);
   //mkdir(str, 0755);
 
-  datadir = DATA_PREFIX;
+  if (dirExists("mass:/"))
+      datadir = "mass:/APPS/SUPERTUX";
+  else if (dirExists("cdfs:/"))
+      datadir = "cdfs:/data";
+  else if (dirExists("hdd:/"))
+      datadir = "hdd:/APPS/SUPERTUX";
+  else
+      st_abort("Couldn't find SuperTux data folder on", "USB, CD and HDD.");
+
   printf("Datadir: %s\n", datadir.c_str());
 }
 
@@ -865,9 +883,9 @@ void st_shutdown(void)
 
 void st_abort(const std::string& reason, const std::string& details)
 {
-  FILE* fd = fopen("mass:TUX.TXT", "w");
-  fprintf(fd, "\nError: %s\n%s\n\n", reason.c_str(), details.c_str());
-  fclose(fd);
+  //FILE* fd = fopen("mass:TUX.TXT", "w");
+  //fprintf(fd, "\nError: %s\n%s\n\n", reason.c_str(), details.c_str());
+  //fclose(fd);
   printf("\nError: %s\n%s\n\n", reason.c_str(), details.c_str());
   st_shutdown();
   abort();
