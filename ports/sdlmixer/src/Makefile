@@ -1,13 +1,13 @@
 EE_LIB_DIR = ../lib/
 EE_LIB = $(EE_LIB_DIR)libsdlmixer.a
 
-EE_CFLAGS   = -DOGG_MUSIC -DMOD_MUSIC -DWAV_MUSIC -DUSE_RWOPS -DPS2_ROMFS
+EE_CFLAGS   = -DOGG_MUSIC -DMOD_MUSIC -DWAV_MUSIC -DUSE_RWOPS #-DPS2_ROMFS
 EE_CXXFLAGS = -DNOCONTROLS -Wno-narrowing
 
 HAVE_MP3_MUSIC = 1
 
 MIKMOD_OBJS  = mikmod/mplayer.o mikmod/mdriver.o mikmod/mloader.o
-MIKMOD_OBJS += mikmod/load_it.o mikmod/load_s3m.o mikmod/load_mod.o mikmod/load_xm.o 
+MIKMOD_OBJS += mikmod/load_it.o mikmod/load_s3m.o mikmod/load_mod.o mikmod/load_xm.o
 MIKMOD_OBJS += mikmod/virtch.o mikmod/virtch2.o mikmod/munitrk.o mikmod/mmerror.o
 MIKMOD_OBJS += mikmod/mmalloc.o mikmod/sloader.o mikmod/mwav.o
 MIKMOD_OBJS += mikmod/drv_nos.o mikmod/drv_sdl.o mikmod/mmio.o
