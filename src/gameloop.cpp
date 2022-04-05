@@ -389,8 +389,8 @@ GameSession::process_events()
 			tux.input.right = UP;
 		  }
 		  if (event.jhat.value == SDL_HAT_CENTERED) {
-                        tux.input.left  = DOWN;
-			tux.input.right = DOWN;
+                        tux.input.left  = UP;
+			tux.input.right = UP;
                   }
 		 
 		  if ( (event.jhat.value ==  ( SDL_HAT_DOWN)) ||
@@ -421,8 +421,8 @@ GameSession::process_events()
                         }
                       else
                         {
-                          tux.input.left  = DOWN;
-                          tux.input.right = DOWN;
+                          tux.input.left  = UP;
+                          tux.input.right = UP;
                         }
                     }
                   else if (event.jaxis.axis == joystick_keymap.y_axis)
