@@ -79,5 +79,6 @@ extern float game_speed;
 extern SDL_Joystick * js;
 
 int wait_for_event(SDL_Event& event,unsigned int min_delay = 0, unsigned int max_delay = 0, bool empty_events = false);
+std::string ReplaceAll(std::string str, const std::string& from, const std::string& to);
 
 #endif /* SUPERTUX_GLOBALS_H */

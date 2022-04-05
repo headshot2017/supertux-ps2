@@ -742,7 +742,7 @@ Level::load_song()
                               strlen(song_title.c_str()) + 8 + 5);
   song_subtitle = strdup(song_title.c_str());
   strcpy(strstr(song_subtitle, "."), "\0");
-  sprintf(song_path, "%s/music/%s-fast%s", datadir.c_str(), 
+  sprintf(song_path, "%s/music/%sfast%s", datadir.c_str(), 
           song_subtitle, strstr(song_title.c_str(), "."));
   if(!music_manager->exists_music(song_path)) {
     level_song_fast = level_song;

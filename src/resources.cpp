@@ -100,13 +100,13 @@ void loadshared()
   /* Water: */
   img_water = new Surface(datadir + "/images/shared/water.png", IGNORE_ALPHA);
 
-  img_waves[0] = new Surface(datadir + "/images/shared/waves-0.png",
+  img_waves[0] = new Surface(datadir + "/images/shared/waves0.png",
                USE_ALPHA);
 
-  img_waves[1] = new Surface(datadir + "/images/shared/waves-1.png",
+  img_waves[1] = new Surface(datadir + "/images/shared/waves1.png",
                USE_ALPHA);
 
-  img_waves[2] = new Surface(datadir + "/images/shared/waves-2.png",
+  img_waves[2] = new Surface(datadir + "/images/shared/waves2.png",
                USE_ALPHA);
 
 
@@ -119,37 +119,37 @@ void loadshared()
 
   /* Flag: */
 
-  img_flag[0] = new Surface(datadir + "/images/shared/flag-0.png",
+  img_flag[0] = new Surface(datadir + "/images/shared/flag0.png",
                USE_ALPHA);
-  img_flag[1] = new Surface(datadir + "/images/shared/flag-1.png",
+  img_flag[1] = new Surface(datadir + "/images/shared/flag1.png",
                USE_ALPHA);
 
 
   /* Cloud: */
 
-  img_cloud[0][0] = new Surface(datadir + "/images/shared/cloud-00.png",
+  img_cloud[0][0] = new Surface(datadir + "/images/shared/cloud00.png",
                USE_ALPHA);
 
-  img_cloud[0][1] = new Surface(datadir + "/images/shared/cloud-01.png",
+  img_cloud[0][1] = new Surface(datadir + "/images/shared/cloud01.png",
                USE_ALPHA);
 
-  img_cloud[0][2] = new Surface(datadir + "/images/shared/cloud-02.png",
+  img_cloud[0][2] = new Surface(datadir + "/images/shared/cloud02.png",
                USE_ALPHA);
 
-  img_cloud[0][3] = new Surface(datadir + "/images/shared/cloud-03.png",
+  img_cloud[0][3] = new Surface(datadir + "/images/shared/cloud03.png",
                USE_ALPHA);
 
 
-  img_cloud[1][0] = new Surface(datadir + "/images/shared/cloud-10.png",
+  img_cloud[1][0] = new Surface(datadir + "/images/shared/cloud10.png",
                USE_ALPHA);
 
-  img_cloud[1][1] = new Surface(datadir + "/images/shared/cloud-11.png",
+  img_cloud[1][1] = new Surface(datadir + "/images/shared/cloud11.png",
                USE_ALPHA);
 
-  img_cloud[1][2] = new Surface(datadir + "/images/shared/cloud-12.png",
+  img_cloud[1][2] = new Surface(datadir + "/images/shared/cloud12.png",
                USE_ALPHA);
 
-  img_cloud[1][3] = new Surface(datadir + "/images/shared/cloud-13.png",
+  img_cloud[1][3] = new Surface(datadir + "/images/shared/cloud13.png",
                USE_ALPHA);
 
 
@@ -175,7 +175,7 @@ void loadshared()
 
   /* Tux life: */
 
-  tux_life = new Surface(datadir + "/images/shared/tux-life.png",
+  tux_life = new Surface(datadir + "/images/shared/tuxlife.png",
                          USE_ALPHA);
 
   /* Sound effects: */

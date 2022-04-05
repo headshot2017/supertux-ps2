@@ -39,7 +39,7 @@ char * soundfilenames[NUM_SOUNDS] = {
                                        "/sounds/squish.wav",
                                        "/sounds/fall.wav",
                                        "/sounds/ricochet.wav",
-                                       "/sounds/bump-upgrade.wav",
+                                       "/sounds/bumpupgrade.wav",
                                        "/sounds/upgrade.wav",
                                        "/sounds/excellent.wav",
                                        "/sounds/coffee.wav",

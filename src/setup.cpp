@@ -231,7 +231,7 @@ string_list_type dsubdirs(const char *rel_path,const  char* expected_file)
                   else
                     {
                       sprintf(filename,"%s/%s/%s/%s",st_dir,rel_path,direntp->d_name,expected_file);
-                      if(faccessible(filename))
+                      if(!faccessible(filename))
                         continue;
                     }
                 }
@@ -352,7 +352,7 @@ void st_directory_setup(void)
 
   if (dirExists("mass:/"))
       datadir = "mass:/APPS/SUPERTUX";
-  else if (dirExists("cdfs:/"))
+  else if (dirExists("cdfs:/data"))
       datadir = "cdfs:/data";
   else if (dirExists("hdd:/"))
       datadir = "hdd:/APPS/SUPERTUX";
@@ -586,20 +586,20 @@ void st_general_setup(void)
 
   /* Load global images: */
 
-  black_text  = new Text(datadir + "/images/status/letters-black.png", TEXT_TEXT, 16,18);
-  gold_text   = new Text(datadir + "/images/status/letters-gold.png", TEXT_TEXT, 16,18);
-  silver_text = new Text(datadir + "/images/status/letters-silver.png", TEXT_TEXT, 16,18);
-  blue_text   = new Text(datadir + "/images/status/letters-blue.png", TEXT_TEXT, 16,18);
-  red_text    = new Text(datadir + "/images/status/letters-red.png", TEXT_TEXT, 16,18);
-  green_text  = new Text(datadir + "/images/status/letters-green.png", TEXT_TEXT, 16,18);
-  white_text  = new Text(datadir + "/images/status/letters-white.png", TEXT_TEXT, 16,18);
-  white_small_text = new Text(datadir + "/images/status/letters-white-small.png", TEXT_TEXT, 8,9);
-  white_big_text   = new Text(datadir + "/images/status/letters-white-big.png", TEXT_TEXT, 20,22);
+  black_text  = new Text(datadir + "/images/status/lettersblack.png", TEXT_TEXT, 16,18);
+  gold_text   = new Text(datadir + "/images/status/lettersgold.png", TEXT_TEXT, 16,18);
+  silver_text = new Text(datadir + "/images/status/letterssilver.png", TEXT_TEXT, 16,18);
+  blue_text   = new Text(datadir + "/images/status/lettersblue.png", TEXT_TEXT, 16,18);
+  red_text    = new Text(datadir + "/images/status/lettersred.png", TEXT_TEXT, 16,18);
+  green_text  = new Text(datadir + "/images/status/lettersgreen.png", TEXT_TEXT, 16,18);
+  white_text  = new Text(datadir + "/images/status/letterswhite.png", TEXT_TEXT, 16,18);
+  white_small_text = new Text(datadir + "/images/status/letterswhitesmall.png", TEXT_TEXT, 8,9);
+  white_big_text   = new Text(datadir + "/images/status/letterswhitebig.png", TEXT_TEXT, 20,22);
   yellow_nums = new Text(datadir + "/images/status/numbers.png", TEXT_NUM, 32,32);
 
   /* Load GUI/menu images: */
   checkbox = new Surface(datadir + "/images/status/checkbox.png", USE_ALPHA);
-  checkbox_checked = new Surface(datadir + "/images/status/checkbox-checked.png", USE_ALPHA);
+  checkbox_checked = new Surface(datadir + "/images/status/checkboxchecked.png", USE_ALPHA);
   back = new Surface(datadir + "/images/status/back.png", USE_ALPHA);
   arrow_left = new Surface(datadir + "/images/icons/left.png", USE_ALPHA);
   arrow_right = new Surface(datadir + "/images/icons/right.png", USE_ALPHA);

@@ -81,7 +81,7 @@ void free_contrib_menu()
 
 void generate_contrib_menu()
 {
-  string_list_type level_subsets = dsubdirs("/levels", "info");
+  string_list_type level_subsets = dsubdirs("levels", "info");
 
   free_contrib_menu();
 
@@ -350,7 +350,7 @@ void title(void)
                   menu_song  = music_manager->load_music(datadir + "/music/credits.ogg");
                   music_manager->halt_music();
                   music_manager->play_music(menu_song,0);
-                  display_text_file("CREDITS", bkg_title, SCROLL_SPEED_CREDITS);
+                  display_text_file("CREDITS.txt", bkg_title, SCROLL_SPEED_CREDITS);
                   music_manager->halt_music();
                   menu_song = music_manager->load_music(datadir + "/music/theme.mod");
                   music_manager->play_music(menu_song);

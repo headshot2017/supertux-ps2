@@ -122,8 +122,8 @@ void TileManager::load_tileset(std::string filename)
                   Surface* cur_image;
                   tile->images.push_back(cur_image);
                   tile->images[tile->images.size()-1] = new Surface(
-                               datadir +  "/images/tilesets/" + (*it),
-                               USE_ALPHA);
+                               datadir +  "/images/tilesets/" + ReplaceAll((*it), "-", ""),
+                               USE_ALPHA); // remove dashes from filename because PS2 cdfs doesn't like it
                 }
               for(std::vector<std::string>::iterator it = tile->editor_filenames.begin();
                   it != tile->editor_filenames.end();
@@ -132,8 +132,8 @@ void TileManager::load_tileset(std::string filename)
                   Surface* cur_image;
                   tile->editor_images.push_back(cur_image);
                   tile->editor_images[tile->editor_images.size()-1] = new Surface(
-                               datadir + "/images/tilesets/" + (*it),
-                               USE_ALPHA);
+                               datadir +  "/images/tilesets/" + ReplaceAll((*it), "-", ""),
+                               USE_ALPHA); // remove dashes from filename because PS2 cdfs doesn't like it
                 }
 		
               if (tile->id + tileset_id >= int(tiles.size())
