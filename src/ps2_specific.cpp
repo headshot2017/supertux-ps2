@@ -79,7 +79,8 @@ void CreateSave(std::string tuxdir, std::string name)
 	// Write icon file to the memory card.
 	// Note: The icon file was created with my bmp2icon tool, available for download at
 	//       http://www.ps2dev.org
-	icon_fd = fopen("data/tux.icn", "r");
+        sprintf(str, "%s/tux.icn", datadir.c_str());
+	icon_fd = fopen(str, "r");
 	if(!icon_fd) return;
 
 	fseek(icon_fd,0,SEEK_END);
